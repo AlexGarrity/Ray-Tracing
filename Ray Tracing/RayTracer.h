@@ -27,14 +27,14 @@ public:
 	uint64_t uGetThreadCount();
 	void generateThreads();
 
-	RGB RGBResolveColor(const Ray &r, Object *world);
-	Vector3 vec3GetRandomUnitVectorInSphere();
+	RGB RGBResolveColor(const Ray &r, Object *world, Random &random);
+	Vector3 vec3GetRandomUnitVectorInSphere(Random &random);
 	void resolvePixels(int64_t uXLower, int64_t uXUppery);
 
 	Object * objectList = new ObjectList(
 		std::vector<Object*>{
 			new Sphere(Vector3(0.0, 0.0, -1.0), 0.5)
-			//, new Sphere(Vector3(0.0, -100.5, -1.0), 100.0)
+			, new Sphere(Vector3(0.0, -100.5, -1.0), 100.0)
 		}
 	);
 

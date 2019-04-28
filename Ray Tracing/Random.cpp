@@ -1,10 +1,5 @@
 #include "Random.h"
 
-Random& Random::get() {
-	static Random r;
-	return r;
-}
-
 double_t Random::dbRand()
 {
 	return rand() / RAND_MAX;
@@ -12,11 +7,28 @@ double_t Random::dbRand()
 
 double_t Random::dbNext()
 {
-	return distributionOne(_mt19937Generator);
+	_lastValueIndex++;
+	if (_lastValueIndex == 1000) {
+		_lastValueIndex = 0;
+	}
+	return _arrdbRealValues.at(_lastValueIndex);
 }
 
 double_t Random::dbNext(double_t dbLower, double_t dbUpper)
 {
-	std::uniform_real_distribution<double_t> distribution(dbLower, dbUpper);
-	return distribution(_mt19937Generator);
+	return (dbNext() * dbUpper) + dbLower;
+}
+
+void Random::generateDoubleValues()
+{
+	for (auto i = 0; i < 1000; i++) {
+		_arrdbRealValues.at(i) = _distributionRealOne(_mt19937Generator);
+	}
+}
+
+void Random::generateIntValues()
+{
+	for (auto i = 0; i < 1000; i++) {
+		_arruIntValues.at(i) = _distributionRealOne(_mt19937Generator) * UINT64_MAX;
+	}
 }

@@ -25,12 +25,12 @@ void RayTracer::generateThreads()
 
 }
 
-RGB RayTracer::RGBResolveColor(const Ray& r, Object *world)
+RGB RayTracer::RGBResolveColor(const Ray& r, Object *world, Random &random)
 {
 	Hit hitRecord;
 	if (world->bCheckHit(r, 0.0001, 200.0, hitRecord)) {
-		Vector3 vec3TargetPixel = hitRecord.vec3P + hitRecord.vec3Normal + vec3GetRandomUnitVectorInSphere();
-		return RGB(RGBResolveColor(Ray(hitRecord.vec3P, vec3TargetPixel - hitRecord.vec3P), world)) * 0.5;
+		Vector3 vec3TargetPixel = hitRecord.vec3P + hitRecord.vec3Normal + vec3GetRandomUnitVectorInSphere(random);
+		return RGB(RGBResolveColor(Ray(hitRecord.vec3P, vec3TargetPixel - hitRecord.vec3P), world, random)) * 0.5;
 	}
 	else {
 		Vector3 vec3UnitDirection = vec3UnitVector(r.vec3Direction());
@@ -39,26 +39,29 @@ RGB RayTracer::RGBResolveColor(const Ray& r, Object *world)
 	}
 }
 
-Vector3 RayTracer::vec3GetRandomUnitVectorInSphere()
+Vector3 RayTracer::vec3GetRandomUnitVectorInSphere(Random &r)
 {
 	Vector3 vec3Point;
 	do {
-		vec3Point = Vector3(DRAND, DRAND, DRAND) * 2.0 - Vector3(1, 1, 1) ;
+		vec3Point = Vector3(r.dbNext(), r.dbNext(), r.dbNext()) * 2.0 - Vector3(1, 1, 1) ;
 	} while (vec3Point.dbSquareLength() >= 1.0);
 	return vec3Point;
 }
 
 void RayTracer::resolvePixels(int64_t uXLower, int64_t uXUpper)
 {
+	Random random;
+	random.generateDoubleValues();
+	random.generateIntValues();
 	for (int64_t y = uXUpper - 1; y >= uXLower; y--) {
 		for (int64_t x = 0; x < _iWidth; x++) {
 			RGB color(0.0, 0.0, 0.0);
 			for (int64_t z = 0; z < _iDepth; z++) {
-				double_t dbU = double_t(x + DRAND) / double_t(_iWidth);
-				double_t dbV = double_t(y + DRAND) / double_t(_iHeight);
+				double_t dbU = double_t(x + random.dbNext()) / double_t(_iWidth);
+				double_t dbV = double_t(y + random.dbNext()) / double_t(_iHeight);
 				Ray ray = _cameraMain.rayGenerateRay(dbU, dbV);
 				Vector3 p = ray.vec3GetPositionOnLine(2.0);
-				color += RGBResolveColor(ray, objectList);
+				color += RGBResolveColor(ray, objectList, random);
 			}
 			color /= double_t(_iDepth);
 			color = RGB(sqrt(color._dbR), sqrt(color._dbG), sqrt(color._dbB));
