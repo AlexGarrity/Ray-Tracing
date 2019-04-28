@@ -7,11 +7,11 @@ double_t Random::dbRand()
 
 double_t Random::dbNext()
 {
-	_lastValueIndex++;
-	if (_lastValueIndex == 1000) {
-		_lastValueIndex = 0;
+	_uLastValueIndex++;
+	if (_uLastValueIndex == _uNoiseSize) {
+		_uLastValueIndex = 0;
 	}
-	return _arrdbRealValues.at(_lastValueIndex);
+	return _arrdbRealValues.at(_uLastValueIndex);
 }
 
 double_t Random::dbNext(double_t dbLower, double_t dbUpper)
@@ -19,16 +19,22 @@ double_t Random::dbNext(double_t dbLower, double_t dbUpper)
 	return (dbNext() * dbUpper) + dbLower;
 }
 
+void Random::setNoiseSize(uint64_t uNoiseSize) {
+	_uNoiseSize = uNoiseSize;
+	_arruIntValues.resize(_uNoiseSize);
+	_arrdbRealValues.resize(_uNoiseSize);
+}
+
 void Random::generateDoubleValues()
 {
-	for (auto i = 0; i < 1000; i++) {
+	for (auto i = 0; i < _uNoiseSize; i++) {
 		_arrdbRealValues.at(i) = _distributionRealOne(_mt19937Generator);
 	}
 }
 
 void Random::generateIntValues()
 {
-	for (auto i = 0; i < 1000; i++) {
+	for (auto i = 0; i < _uNoiseSize; i++) {
 		_arruIntValues.at(i) = _distributionRealOne(_mt19937Generator) * UINT64_MAX;
 	}
 }

@@ -6,9 +6,9 @@ void RayTracer::setSize(int64_t width, int64_t height)
 	_iHeight = height;
 }
 
-void RayTracer::setFileName(const char* filePath)
+void RayTracer::setFileName(std::string strFilePath)
 {
-	_pchFilePath = filePath;
+	_strFilePath = strFilePath;
 }
 
 uint64_t RayTracer::uGetThreadCount()
@@ -51,6 +51,7 @@ Vector3 RayTracer::vec3GetRandomUnitVectorInSphere(Random &r)
 void RayTracer::resolvePixels(int64_t uXLower, int64_t uXUpper)
 {
 	Random random;
+	random.setNoiseSize(10000);
 	random.generateDoubleValues();
 	random.generateIntValues();
 	for (int64_t y = uXUpper - 1; y >= uXLower; y--) {
@@ -78,6 +79,7 @@ void RayTracer::init() {
 
 void RayTracer::trace() {
 	if (_pImage) {
+		_timer.startTimer();
 		printf("Creating %i threads\n", (int)_uThreadCount);
 		for (auto i = 0; i < _uThreadCount; i++) {
 			int64_t uLocalLower = (i * (_iHeight / _uThreadCount));
@@ -89,13 +91,14 @@ void RayTracer::trace() {
 			printf("Joining thread %p\n", t->get_id());
 			t->join();
 		}
-
+		uint64_t executionTime = _timer.stopTimer();
+		printf("Render took %u milliseconds, which is %u milliseconds per pixel\n", executionTime, (_iWidth * _iHeight) / executionTime);
 		printf("Clearing the thread pool\n");
 		_arrThreadPool.clear();
 		printf("Opening the viewer\n");
-		_pImage->writeToFile("image.ppm");
+		_pImage->writeToFile((_strFilePath + ".ppm").data());
 		_viewer.setImage(*(_pImage));
-		_viewer.saveImage(_pchFilePath);
+		_viewer.saveImage((_strFilePath + ".png").data());
 		_viewer.displayImage();
 	}
 }

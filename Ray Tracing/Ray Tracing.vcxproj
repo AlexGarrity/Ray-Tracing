@@ -18,6 +18,34 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Camera.h" />
+    <ClInclude Include="include\Object.h" />
+    <ClInclude Include="include\ObjectList.h" />
+    <ClInclude Include="include\PPM.h" />
+    <ClInclude Include="include\Random.h" />
+    <ClInclude Include="include\Ray.h" />
+    <ClInclude Include="include\RayTracer.h" />
+    <ClInclude Include="include\RGB.h" />
+    <ClInclude Include="include\Sphere.h" />
+    <ClInclude Include="include\Timer.h" />
+    <ClInclude Include="include\Vector3.h" />
+    <ClInclude Include="include\Viewer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\PPM.cpp" />
+    <ClCompile Include="src\Random.cpp" />
+    <ClCompile Include="src\Ray.cpp" />
+    <ClCompile Include="src\RayCollision.cpp" />
+    <ClCompile Include="src\RayTracer.cpp" />
+    <ClCompile Include="src\Timer.cpp" />
+    <ClCompile Include="src\Viewer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{81E482F7-1556-4DED-8763-22EFFF366DC0}</ProjectGuid>
@@ -76,7 +104,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\OCL_SDK_Light\include;C:\Users\Alex\Documents\Visual Studio 2019\Libraries\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Alex\source\repos\Ray Tracing\Ray Tracing\include;C:\Program Files %28x86%29\OCL_SDK_Light\include;C:\Users\Alex\Documents\Visual Studio 2019\Libraries\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -91,7 +119,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\OCL_SDK_Light\include;C:\Users\Alex\Documents\Visual Studio 2019\Libraries\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Alex\source\repos\Ray Tracing\Ray Tracing\include;C:\Program Files %28x86%29\OCL_SDK_Light\include;C:\Users\Alex\Documents\Visual Studio 2019\Libraries\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -109,7 +137,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\OCL_SDK_Light\include;C:\Users\Alex\Documents\Visual Studio 2019\Libraries\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Alex\source\repos\Ray Tracing\Ray Tracing\include;C:\Program Files %28x86%29\OCL_SDK_Light\include;C:\Users\Alex\Documents\Visual Studio 2019\Libraries\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -129,7 +157,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\OCL_SDK_Light\include;C:\Users\Alex\Documents\Visual Studio 2019\Libraries\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Alex\source\repos\Ray Tracing\Ray Tracing\include;C:\Program Files %28x86%29\OCL_SDK_Light\include;C:\Users\Alex\Documents\Visual Studio 2019\Libraries\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -140,28 +168,6 @@
       <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="PPM.cpp" />
-    <ClCompile Include="Random.cpp" />
-    <ClCompile Include="Ray.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="RayTracer.cpp" />
-    <ClCompile Include="Viewer.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="ObjectList.h" />
-    <ClInclude Include="PPM.h" />
-    <ClInclude Include="Random.h" />
-    <ClInclude Include="Ray.h" />
-    <ClInclude Include="Object.h" />
-    <ClInclude Include="RayTracer.h" />
-    <ClInclude Include="RGB.h" />
-    <ClInclude Include="Sphere.h" />
-    <ClInclude Include="Vector3.h" />
-    <ClInclude Include="Viewer.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

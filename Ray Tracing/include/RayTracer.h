@@ -2,6 +2,7 @@
 
 #include <cstdlib>
 #include <thread>
+#include <string>
 
 #include "Camera.h"
 #include "Sphere.h"
@@ -11,6 +12,7 @@
 #include "Random.h"
 #include "Ray.h"
 #include "Viewer.h"
+#include "Timer.h"
 
 
 #define DRAND Random::get().dbNext()
@@ -22,7 +24,7 @@ public:
 	void trace();
 
 	void setSize(int64_t width, int64_t height);
-	void setFileName(const char* filePath);
+	void setFileName(std::string strFilePath);
 
 	uint64_t uGetThreadCount();
 	void generateThreads();
@@ -33,7 +35,8 @@ public:
 
 	Object * objectList = new ObjectList(
 		std::vector<Object*>{
-			new Sphere(Vector3(0.0, 0.0, -1.0), 0.5)
+			new Sphere(Vector3(-0.5001, 0.0, -1.0), 0.5)
+			, new Sphere(Vector3(0.5001, 0.0, -1.0), 0.5)
 			, new Sphere(Vector3(0.0, -100.5, -1.0), 100.0)
 		}
 	);
@@ -41,10 +44,11 @@ public:
 	std::vector<std::thread*> _arrThreadPool;
 	uint64_t _uThreadCount = 0;
 
+	Timer _timer;
 	Viewer _viewer;
 	Camera _cameraMain;
 	PPM* _pImage = nullptr;
-	const char* _pchFilePath = "";
+	std::string _strFilePath = "";
 	int64_t _iWidth = 1280, _iHeight = 720, _iDepth = 200;
 };
 

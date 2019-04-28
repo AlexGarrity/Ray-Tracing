@@ -2,17 +2,17 @@
 #ifdef _DEBUG
 #define WIDTH 200
 #define HEIGHT 100
-#define FILEPATH "image_small.png"
+#define FILEPATH "output/image_small"
 #else
 #define WIDTH 1280
 #define HEIGHT 720
-#define FILEPATH "image.png"
+#define FILEPATH "output/image"
 #endif
 
 #ifdef SUPER
 #define WIDTH 3840
 #define HEIGHT 2160
-#define FILEPATH "image_big.png"
+#define FILEPATH "output/image_big"
 #endif
 
 #include "RayTracer.h"
